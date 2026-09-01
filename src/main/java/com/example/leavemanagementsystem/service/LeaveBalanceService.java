@@ -1,6 +1,6 @@
 package com.example.leavemanagementsystem.service;
 
-import com.example.leavemanagementsystem.entity.leavebalance;
+import com.example.leavemanagementsystem.entity.LeaveBalance;
 import com.example.leavemanagementsystem.repository.LeaveBalanceRepository;
 import org.springframework.stereotype.Service;
 
@@ -18,25 +18,25 @@ public class LeaveBalanceService {
         this.leaveBalanceRepository = leaveBalanceRepository;
     }
 
-    public leavebalance saveLeaveBalance(leavebalance balance) {
+    public LeaveBalance saveLeaveBalance(LeaveBalance balance) {
         return leaveBalanceRepository.save(balance);
     }
 
-    public Optional<leavebalance> getLeaveBalance(Long employeeId, Long leaveTypeId) {
+    public Optional<LeaveBalance> getLeaveBalance(Long employeeId, Long leaveTypeId) {
         int currentYear = LocalDate.now().getYear();
         return leaveBalanceRepository.findByEmployeeIdAndLeaveTypeIdAndYear(employeeId, leaveTypeId, currentYear);
     }
 
-    public List<leavebalance> getEmployeeBalances(Long employeeId) {
+    public List<LeaveBalance> getEmployeeBalances(Long employeeId) {
         return leaveBalanceRepository.findByEmployeeId(employeeId);
     }
 
     public void updateLeaveBalance(Long employeeId, Long leaveTypeId, BigDecimal daysUsed) {
         int currentYear = LocalDate.now().getYear();
-        Optional<leavebalance> optionalBalance = leaveBalanceRepository.findByEmployeeIdAndLeaveTypeIdAndYear(employeeId, leaveTypeId, currentYear);
+        Optional<LeaveBalance> optionalBalance = leaveBalanceRepository.findByEmployeeIdAndLeaveTypeIdAndYear(employeeId, leaveTypeId, currentYear);
         
         if (optionalBalance.isPresent()) {
-            leavebalance balance = optionalBalance.get();
+            LeaveBalance balance = optionalBalance.get();
             BigDecimal newUsed = balance.getUsed().add(daysUsed);
             BigDecimal newAvailable = balance.getEntitled()
                 .add(balance.getCarryForward())
@@ -50,7 +50,7 @@ public class LeaveBalanceService {
         }
     }
 
-    public List<leavebalance> getBalancesByYear(int year) {
+    public List<LeaveBalance> getBalancesByYear(int year) {
         return leaveBalanceRepository.findByYear(year);
     }
 

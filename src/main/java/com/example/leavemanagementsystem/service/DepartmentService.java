@@ -1,6 +1,6 @@
 package com.example.leavemanagementsystem.service;
 
-import com.example.leavemanagementsystem.entity.department;
+import com.example.leavemanagementsystem.entity.Department;
 import com.example.leavemanagementsystem.repository.DepartmentRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,23 +16,23 @@ public class DepartmentService {
         this.departmentRepository = departmentRepository;
     }
 
-    public department saveDepartment(department dept) {
+    public Department saveDepartment(Department dept) {
         return departmentRepository.save(dept);
     }
 
-    public Optional<department> getDepartmentById(Long id) {
+    public Optional<Department> getDepartmentById(Long id) {
         return departmentRepository.findById(id);
     }
 
-    public Optional<department> getDepartmentByName(String name) {
+    public Optional<Department> getDepartmentByName(String name) {
         return departmentRepository.findByName(name);
     }
 
-    public List<department> getAllActiveDepartments() {
+    public List<Department> getAllActiveDepartments() {
         return departmentRepository.findByActive(true);
     }
 
-    public List<department> getAllDepartments() {
+    public List<Department> getAllDepartments() {
         return departmentRepository.findAll();
     }
 
