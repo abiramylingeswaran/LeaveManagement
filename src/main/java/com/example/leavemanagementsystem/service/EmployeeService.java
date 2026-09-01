@@ -1,46 +1,60 @@
 package com.example.leavemanagementsystem.service;
 
-import com.example.leavemanagementsystem.entity.employee;
-import com.example.leavemanagementsystem.repository.EmployeeRepository;
-import org.springframework.stereotype.Service;
+
+import com.example.leavemanagementsystem.dto.RequestDto.EmployeeRequestDto;
+import com.example.leavemanagementsystem.dto.ResponseDto.EmployeeResponseDto;
 
 import java.util.List;
-import java.util.Optional;
 
-@Service
-public class EmployeeService {
+/**
+ * Service interface for Employee CRUD operations.
+ */
+public interface EmployeeService {
 
-    private final EmployeeRepository employeeRepository;
+    /**
+     * Create a new employee.
+     *
+     * @param dto the employee data
+     * @return the created employee as response DTO
+     */
+    EmployeeResponseDto createEmployee(EmployeeRequestDto dto);
 
-    public EmployeeService(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
-    }
+    /**
+     * Update an existing employee.
+     *
+     * @param id  the ID of the employee to update
+     * @param dto the updated employee data
+     * @return the updated employee as response DTO
+     */
+    EmployeeResponseDto updateEmployee(Long id, EmployeeRequestDto dto);
 
-    public employee saveEmployee(employee emp) {
-        return employeeRepository.save(emp);
-    }
+    /**
+     * Get an employee by ID.
+     *
+     * @param id the employee ID
+     * @return the employee as response DTO
+     */
+    EmployeeResponseDto getEmployeeById(Long id);
 
-    public Optional<employee> getEmployeeById(Long id) {
-        return employeeRepository.findById(id);
-    }
+    /**
+     * Get all employees.
+     *
+     * @return list of all employees as response DTOs
+     */
+    List<EmployeeResponseDto> getAllEmployees();
 
-    public Optional<employee> getEmployeeByEmployeeId(String employeeId) {
-        return employeeRepository.findByEmployeeId(employeeId);
-    }
+    /**
+     * Get employees by department ID.
+     *
+     * @param departmentId the department ID
+     * @return list of employees in that department as response DTOs
+     */
+    List<EmployeeResponseDto> getEmployeesByDepartment(Long departmentId);
 
-    public List<employee> getAllActiveEmployees() {
-        return employeeRepository.findByActive(true);
-    }
-
-    public List<employee> getEmployeesByDepartment(Long departmentId) {
-        return employeeRepository.findByDepartmentId(departmentId);
-    }
-
-    public List<employee> getAllEmployees() {
-        return employeeRepository.findAll();
-    }
-
-    public void deleteEmployee(Long id) {
-        employeeRepository.deleteById(id);
-    }
+    /**
+     * Delete (soft delete) an employee.
+     *
+     * @param id the employee ID
+     */
+    void deleteEmployee(Long id);
 }

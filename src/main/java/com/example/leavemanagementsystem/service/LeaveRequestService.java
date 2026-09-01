@@ -1,6 +1,6 @@
 package com.example.leavemanagementsystem.service;
 
-import com.example.leavemanagementsystem.entity.levaerequest;
+import com.example.leavemanagementsystem.entity.LevaeRequest;
 import com.example.leavemanagementsystem.enums.LeaveRequestStatus;
 import com.example.leavemanagementsystem.repository.LeaveRequestRepository;
 import org.springframework.stereotype.Service;
@@ -18,38 +18,38 @@ public class LeaveRequestService {
         this.leaveRequestRepository = leaveRequestRepository;
     }
 
-    public levaerequest submitLeaveRequest(levaerequest request) {
+    public LevaeRequest submitLeaveRequest(LevaeRequest request) {
         request.setStatus(LeaveRequestStatus.PENDING);
         return leaveRequestRepository.save(request);
     }
 
-    public Optional<levaerequest> getLeaveRequestById(Long id) {
+    public Optional<LevaeRequest> getLeaveRequestById(Long id) {
         return leaveRequestRepository.findById(id);
     }
 
-    public List<levaerequest> getPendingRequestsForEmployee(Long employeeId) {
+    public List<LevaeRequest> getPendingRequestsForEmployee(Long employeeId) {
         return leaveRequestRepository.findByEmployeeIdAndStatus(employeeId, LeaveRequestStatus.PENDING);
     }
 
-    public List<levaerequest> getAllPendingRequests() {
+    public List<LevaeRequest> getAllPendingRequests() {
         return leaveRequestRepository.findByStatus(LeaveRequestStatus.PENDING);
     }
 
-    public List<levaerequest> getEmployeeLeaveHistory(Long employeeId) {
+    public List<LevaeRequest> getEmployeeLeaveHistory(Long employeeId) {
         return leaveRequestRepository.findByEmployeeId(employeeId);
     }
 
-    public levaerequest updateRequestStatus(Long requestId, LeaveRequestStatus status) {
-        Optional<levaerequest> optional = leaveRequestRepository.findById(requestId);
+    public LevaeRequest updateRequestStatus(Long requestId, LeaveRequestStatus status) {
+        Optional<LevaeRequest> optional = leaveRequestRepository.findById(requestId);
         if (optional.isPresent()) {
-            levaerequest request = optional.get();
+            LevaeRequest request = optional.get();
             request.setStatus(status);
             return leaveRequestRepository.save(request);
         }
         return null;
     }
 
-    public List<levaerequest> getConflictingLeaves(LocalDate startDate, LocalDate endDate) {
+    public List<LevaeRequest> getConflictingLeaves(LocalDate startDate, LocalDate endDate) {
         return leaveRequestRepository.findByStartDateAndEndDate(startDate, endDate);
     }
 
