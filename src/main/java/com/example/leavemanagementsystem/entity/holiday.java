@@ -1,13 +1,33 @@
 package com.example.leavemanagementsystem.entity;
 
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDate;
 
-public class holiday {
-    private Long id;
+@Entity
+@Table(name = "holidays")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class holiday extends BaseEntity {
+    
+    @Column(nullable = false)
     private String name;
+    
+    @Column(nullable = false, unique = true)
     private LocalDate date;
-//    private HolidayType holidayType;
-    private boolean workingDay;
-
-    private organization organization;
+    
+    private String holidayType; // PUBLIC, COMPANY, SPECIAL
+    
+    @Column(nullable = false)
+    private boolean workingDay = false;
+    
+    private String description;
+    
+    @Column(nullable = false)
+    private boolean active = true;
 }
+
