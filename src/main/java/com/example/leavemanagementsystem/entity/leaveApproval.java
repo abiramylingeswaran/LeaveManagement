@@ -1,14 +1,35 @@
 package com.example.leavemanagementsystem.entity;
 
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDateTime;
 
-public class leaveApproval {
-    private Long id;
-//    private ApprovalStatus status;
+@Entity
+@Table(name = "leave_approvals")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class leaveApproval extends BaseEntity {
+    
+    @Column(nullable = false)
+    private String status; // APPROVED, REJECTED, PENDING
+    
     private String comments;
+    
     private LocalDateTime actionDate;
-
+    
+    @ManyToOne
+    @JoinColumn(name = "leave_request_id", nullable = false)
     private levaerequest leaveRequest;
+    
+    @ManyToOne
+    @JoinColumn(name = "approver_id", nullable = false)
     private employee approver;
-//    private ApprovalWorkflowStep workflowStep;
+    
+    @Column(nullable = false)
+    private int approvalLevel = 1;
 }
+

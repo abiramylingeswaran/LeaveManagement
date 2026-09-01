@@ -1,11 +1,28 @@
 package com.example.leavemanagementsystem.entity;
 
-public class leavetype {
-    private Long id;
-    private String name;
-    private String description;
-    private boolean paid;
-    private boolean active;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-    private organization organization;
+@Entity
+@Table(name = "leave_types")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class leavetype extends BaseEntity {
+    
+    @Column(nullable = false, unique = true)
+    private String name;
+    
+    private String description;
+    
+    @Column(nullable = false)
+    private boolean paid = true;
+    
+    @Column(nullable = false)
+    private boolean active = true;
+    
+    private boolean requiresAttachment = false;
 }
+

@@ -1,18 +1,45 @@
 package com.example.leavemanagementsystem.entity;
 
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class leaveModification {
-    private Long id;
+@Entity
+@Table(name = "leave_modifications")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class leaveModification extends BaseEntity {
+    
     private LocalDate oldStartDate;
+    
     private LocalDate oldEndDate;
+    
     private LocalDate newStartDate;
+    
     private LocalDate newEndDate;
+    
+    @Column(nullable = false)
     private String reason;
-//    private ModificationStatus status;
-    private LocalDateTime requestedAt;
-
+    
+    @Column(nullable = false)
+    private String status = "PENDING";
+    
+    private String comments;
+    
+    @Column(nullable = false)
+    private LocalDateTime requestedAt = LocalDateTime.now();
+    
+    @ManyToOne
+    @JoinColumn(name = "leave_request_id", nullable = false)
     private levaerequest leaveRequest;
+    
+    @ManyToOne
+    @JoinColumn(name = "requested_by_id", nullable = false)
     private employee requestedBy;
 }
+
