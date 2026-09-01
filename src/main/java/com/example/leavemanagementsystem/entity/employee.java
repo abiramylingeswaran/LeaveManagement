@@ -48,7 +48,7 @@ public class employee extends BaseEntity {
     
     @OneToOne
     @JoinColumn(name = "user_id", unique = true)
-    private User user;
+    private user user;
     
     @ManyToOne
     @JoinColumn(name = "department_id")

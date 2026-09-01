@@ -15,7 +15,7 @@ import java.util.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class User extends BaseEntity implements UserDetails {
+public class user extends BaseEntity implements UserDetails {
     
     @Column(unique = true, nullable = false)
     private String username;
@@ -39,7 +39,7 @@ public class User extends BaseEntity implements UserDetails {
     private boolean credentialsNonExpired = true;
     
     @OneToOne(mappedBy = "user")
-    private Employee employee;
+    private employee employee;
     
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -47,13 +47,13 @@ public class User extends BaseEntity implements UserDetails {
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private Set<Role> roles = new HashSet<>();
+    private Set<role> roles = new HashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        for (Role role : roles) {
-            authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName()));
+        for (role r : roles) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + r.getName()));
         }
         return authorities;
     }

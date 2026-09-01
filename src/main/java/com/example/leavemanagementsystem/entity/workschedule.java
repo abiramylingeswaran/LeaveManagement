@@ -1,15 +1,29 @@
 package com.example.leavemanagementsystem.entity;
 
-public class workschedule {
-    private Long id;
-    private String name;
-    private boolean monday;
-    private boolean tuesday;
-    private boolean wednesday;
-    private boolean thursday;
-    private boolean friday;
-    private boolean saturday;
-    private boolean sunday;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-    private organization organization;
+import java.time.DayOfWeek;
+
+@Entity
+@Table(name = "work_schedules")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class workschedule extends BaseEntity {
+    
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private DayOfWeek dayOfWeek;
+    
+    @Column(nullable = false)
+    private boolean workingDay = true;
+    
+    private String description;
+    
+    @Column(nullable = false)
+    private boolean active = true;
 }
+
