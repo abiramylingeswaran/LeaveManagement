@@ -12,4 +12,5 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     Optional<Employee> findByEmployeeId(String employeeId);
     List<Employee> findByActive(boolean active);
     List<Employee> findByDepartmentId(Long departmentId);
+    Optional<Employee>findByEmail(String email);
 }
