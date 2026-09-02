@@ -43,7 +43,6 @@ public class EmployeeRequestDto {
 
     private Boolean active = true;
 
-    // Reference IDs (optional)
     private Long userId;
     private Long departmentId;
     private Long designationId;

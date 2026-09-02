@@ -45,7 +45,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
                 .requestMatchers("/api/hr/**").hasAnyRole("ADMIN", "HR")
                 .requestMatchers("/api/manager/**").hasAnyRole("ADMIN", "HR", "MANAGER")
-                .anyRequest().authenticated())
+                .anyRequest().permitAll())
             .httpBasic(Customizer.withDefaults())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
             .headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()));
