@@ -11,5 +11,5 @@ import java.util.Optional;
 @Repository
 public interface HolidayRepository extends JpaRepository<Holiday, Long> {
     Optional<Holiday> findByDate(LocalDate date);
-    List<Holiday> findByActive(boolean active);
+    List<Holiday> findByActiveTrue();
 }
